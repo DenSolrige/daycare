@@ -8,4 +8,9 @@ import org.springframework.stereotype.Service;
 public class GradeServiceImpl implements GradeService{
     @Autowired
     GradeRepo gradeRepo;
+
+    @Override
+    public void deleteGradeById(int id) {
+        this.gradeRepo.deleteById(id);
+    }
 }
