@@ -6,6 +6,8 @@ import dev.titans.repos.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl implements StudentService{
     @Autowired
@@ -25,5 +27,10 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public Student createStudent(Student student) {
         return this.studentRepo.save(student);
+    }
+
+    @Override
+    public List<Student> getStudentsByName(String firstName, String lastName) {
+        return this.studentRepo.findByFirstNameAndLastName(firstName,lastName);
     }
 }
