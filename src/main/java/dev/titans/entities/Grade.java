@@ -9,13 +9,13 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "g_id")
-    private int g_id;
+    private int gradeId;
 
     @Column(name = "s_id")
-    private int s_id;
+    private int studentId;
 
     @Column(name = "time_reported")
-    private long time_reported;
+    private long timeReported;
 
     @Column(name = "note")
     private String note;
@@ -26,36 +26,36 @@ public class Grade {
     public Grade() {
     }
 
-    public Grade(int g_id, int s_id, long time_reported, String note, Behavior behavior) {
-        this.g_id = g_id;
-        this.s_id = s_id;
-        this.time_reported = time_reported;
+    public Grade(int gradeId, int studentId, long timeReported, String note, Behavior behavior) {
+        this.gradeId = gradeId;
+        this.studentId = studentId;
+        this.timeReported = timeReported;
         this.note = note;
         this.behavior = behavior;
     }
 
-    public int getG_id() {
-        return g_id;
+    public int getGradeId() {
+        return gradeId;
     }
 
-    public void setG_id(int g_id) {
-        this.g_id = g_id;
+    public void setGradeId(int gradeId) {
+        this.gradeId = gradeId;
     }
 
-    public int getS_id() {
-        return s_id;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setS_id(int s_id) {
-        this.s_id = s_id;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
-    public long getTime_reported() {
-        return time_reported;
+    public long getTimeReported() {
+        return timeReported;
     }
 
-    public void setTime_reported(long time_reported) {
-        this.time_reported = time_reported;
+    public void setTimeReported(long timeReported) {
+        this.timeReported = timeReported;
     }
 
     public String getNote() {
@@ -77,9 +77,9 @@ public class Grade {
     @Override
     public String toString() {
         return "Grade{" +
-                "g_id=" + g_id +
-                ", s_id=" + s_id +
-                ", time_reported=" + time_reported +
+                "g_id=" + gradeId +
+                ", s_id=" + studentId +
+                ", time_reported=" + timeReported +
                 ", note='" + note + '\'' +
                 ", behavior=" + behavior +
                 '}';
