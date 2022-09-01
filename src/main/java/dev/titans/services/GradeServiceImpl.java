@@ -26,7 +26,7 @@ public class GradeServiceImpl implements GradeService{
     }
 
     @Override
-    public List<Grade> getAllGrades() {
+    public List<Grade> getGrades() {
        List<Grade> grades = this.gradeRepo.findAll();
        return grades;
     }
