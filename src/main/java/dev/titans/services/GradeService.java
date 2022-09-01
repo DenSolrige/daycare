@@ -7,10 +7,14 @@ import java.util.List;
 
 public interface GradeService {
 
+
     Grade addGrade(Grade grade);
 
     List<Grade> getAllGrades();
 
     List <Grade> getGradeByBehavior(Behavior behavior);
+
+
+    void deleteGradeById(int id);
 
 }

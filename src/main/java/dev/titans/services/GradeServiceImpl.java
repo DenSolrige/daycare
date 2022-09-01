@@ -14,6 +14,7 @@ public class GradeServiceImpl implements GradeService{
     GradeRepo gradeRepo;
 
     @Override
+
     public Grade addGrade(Grade grade) {
        Grade savedGrade = this.gradeRepo.save(grade);
        return savedGrade;
@@ -30,5 +31,9 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public List<Grade> getGradeByBehavior(Behavior behavior) {
         return this.gradeRepo.getGradeByBehavior(behavior);
+
+    public void deleteGradeById(int id) {
+        this.gradeRepo.deleteById(id);
+
     }
 }
