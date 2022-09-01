@@ -26,12 +26,6 @@ public class GradeServiceImpl implements GradeService{
     }
 
     @Override
-    public List<Grade> getGrades() {
-       List<Grade> grades = this.gradeRepo.findAll();
-       return grades;
-    }
-
-    @Override
     public List<Grade> getGradesByStudentId(int id) {
         if(this.studentRepo.existsById(id)){
             return this.gradeRepo.findByStudentId(id);
