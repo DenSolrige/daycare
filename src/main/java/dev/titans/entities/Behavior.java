@@ -5,7 +5,4 @@ public enum Behavior {
 
     MISBEHAVED, BEHAVED, RESPONSIBLE,
 
-    GOOD,
-    BAD
-
 }

@@ -18,8 +18,6 @@ public class GradeServiceImpl implements GradeService{
     public Grade addGrade(Grade grade) {
        Grade savedGrade = this.gradeRepo.save(grade);
        return savedGrade;
-
-
     }
 
     @Override
@@ -28,12 +26,9 @@ public class GradeServiceImpl implements GradeService{
        return grades;
     }
 
-    @Override
-    public List<Grade> getGradeByBehavior(Behavior behavior) {
-        return this.gradeRepo.getGradeByBehavior(behavior);
-
     public void deleteGradeById(int id) {
-        this.gradeRepo.deleteById(id);
-
+        if(this.gradeRepo.existsById(id)){
+            this.gradeRepo.deleteById(id);
+        }
     }
 }

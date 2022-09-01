@@ -24,11 +24,16 @@ public class GradeRepoTests {
 
     @Autowired
     GradeRepo gradeRepo;
+    @Autowired
+    StudentRepo studentRepo;
 
 
     @Test
     public void create_grades() {
-        Grade grade = new Grade(0, 0, 23423544, "Shapeshifting during naptime", Behavior.MISBEHAVED);
+        // need a student in the DB in order to create a grade
+        Student student = new Student(0,"Beast","Boy","Batman");
+        Student savedStudent = studentRepo.save(student);
+        Grade grade = new Grade(0, savedStudent.getS_id(), 0, "Shapeshifting during naptime", Behavior.MISBEHAVED);
         Grade savedGrade = this.gradeRepo.save(grade);
         System.out.println(savedGrade);
         Assertions.assertNotEquals(0, savedGrade.getG_id());
@@ -40,21 +45,14 @@ public class GradeRepoTests {
         System.out.print(grades);
     }
 
-    @Test
-    public void get_Grade_by_Behavior_test() {
-        List <Grade> behaveGrade = this.gradeRepo.getGradeByBehavior(Behavior.BEHAVED);
-        System.out.println(behaveGrade);
-
-    @Autowired
-    StudentRepo studentRepo;
 
     @Test
-    void delete_grade(){
+    public void delete_grade(){
         // need a student in the DB in order to create a grade
         Student student = new Student(0,"Beast","Boy","Batman");
         Student savedStudent = studentRepo.save(student);
         // need to save a grade in the DB to delete it
-        Grade grade = new Grade(0,savedStudent.getS_id(),0,"Beast boy behaved well today!", Behavior.GOOD);
+        Grade grade = new Grade(0,savedStudent.getS_id(),0,"Beast boy behaved well today!", Behavior.RESPONSIBLE);
         Grade savedGrade = gradeRepo.save(grade);
 
         gradeRepo.deleteById(savedGrade.getG_id());
@@ -62,7 +60,6 @@ public class GradeRepoTests {
         Assertions.assertThrows(JpaObjectRetrievalFailureException.class,()->{
             Grade deletedGrade = gradeRepo.getReferenceById(savedGrade.getG_id());
         });
-
     }
 }
 
