@@ -23,15 +23,6 @@ public class GradeController {
     GradeService gradeService;
 
 
-    @GetMapping("/grades")
-    public List<Grade> allGrades(@RequestParam(required = false) Behavior behavior) {
-        if (behavior == null) {
-            return gradeService.getAllGrades();
-        } else {
-            return gradeService.getGradeByBehavior(behavior);
-        }
-    }
-
     @PostMapping("/grades")
     public ResponseEntity<Grade> createGrade(@RequestBody Grade body) {
         Grade savedGrade = this.gradeService.addGrade(body);

@@ -12,9 +12,6 @@ public interface GradeService {
 
     List<Grade> getAllGrades();
 
-    List <Grade> getGradeByBehavior(Behavior behavior);
-
-
     void deleteGradeById(int id);
 
 }

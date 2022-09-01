@@ -42,11 +42,6 @@ public class GradeRepoTests {
         System.out.print(grades);
     }
 
-    @Test
-    public void get_Grade_by_Behavior_test() {
-        List<Grade> behaveGrade = this.gradeRepo.getGradeByBehavior(Behavior.BEHAVED);
-        System.out.println(behaveGrade);
-    }
 
     @Test
     public void delete_grade(){
