@@ -33,4 +33,9 @@ public class StudentServiceImpl implements StudentService{
     public List<Student> getStudentsByName(String firstName, String lastName) {
         return this.studentRepo.findByFirstNameAndLastName(firstName,lastName);
     }
+
+    @Override
+    public List<Student> getStudents() {
+        return this.studentRepo.findAll();
+    }
 }

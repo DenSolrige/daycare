@@ -28,6 +28,10 @@ public class StudentController {
 
     @GetMapping("/students")
     public List<Student> getStudentsByName(@RequestParam(required = false) String firstName,@RequestParam(required = false) String lastName){
-        return this.studentService.getStudentsByName(firstName, lastName);
+        if(firstName == null && lastName == null){
+            return this.studentService.getStudents();
+        }else{
+            return this.studentService.getStudentsByName(firstName, lastName);
+        }
     }
 }
