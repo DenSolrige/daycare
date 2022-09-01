@@ -21,4 +21,12 @@ public class StudentRepoTests {
         Student savedStudent = studentRepo.save(student);
         Assertions.assertNotEquals(0,savedStudent.getS_id());
     }
+
+    @Test
+    void delete_student(){
+        Student savedStudent = studentRepo.save(new Student(0, "Burger", "Man", "Chkechn"));
+        int id = savedStudent.getS_id();
+        studentRepo.deleteById(id);
+        Assertions.assertFalse(studentRepo.existsById(id));
+    }
 }
