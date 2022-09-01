@@ -30,7 +30,10 @@ public class GradeRepoTests {
 
     @Test
     public void create_grades() {
-        Grade grade = new Grade(0, 0, 23423544, "Shapeshifting during naptime", Behavior.MISBEHAVED);
+        // need a student in the DB in order to create a grade
+        Student student = new Student(0,"Beast","Boy","Batman");
+        Student savedStudent = studentRepo.save(student);
+        Grade grade = new Grade(0, savedStudent.getS_id(), 0, "Shapeshifting during naptime", Behavior.MISBEHAVED);
         Grade savedGrade = this.gradeRepo.save(grade);
         System.out.println(savedGrade);
         Assertions.assertNotEquals(0, savedGrade.getG_id());
