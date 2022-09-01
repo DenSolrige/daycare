@@ -19,7 +19,7 @@ public class StudentController {
         this.studentService.deleteStudentById(s_id);
     }
 
-    @PostMapping("/student")
+    @PostMapping("/students")
     public Student createStudent(@RequestBody Student student){
         return this.studentService.createStudent(student);
     }

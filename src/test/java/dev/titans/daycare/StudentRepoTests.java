@@ -19,13 +19,13 @@ public class StudentRepoTests {
     void create_student(){
         Student student = new Student(0,"Beast","Boy","Batman");
         Student savedStudent = studentRepo.save(student);
-        Assertions.assertNotEquals(0,savedStudent.getS_id());
+        Assertions.assertNotEquals(0,savedStudent.getStudentId());
     }
 
     @Test
     void delete_student(){
         Student savedStudent = studentRepo.save(new Student(0, "Burger", "Man", "Chkechn"));
-        int id = savedStudent.getS_id();
+        int id = savedStudent.getStudentId();
         studentRepo.deleteById(id);
         Assertions.assertFalse(studentRepo.existsById(id));
     }
