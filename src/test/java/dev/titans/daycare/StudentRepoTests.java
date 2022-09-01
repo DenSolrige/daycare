@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @SpringBootTest
 @Transactional
 public class StudentRepoTests {
@@ -28,5 +30,12 @@ public class StudentRepoTests {
         int id = savedStudent.getStudentId();
         studentRepo.deleteById(id);
         Assertions.assertFalse(studentRepo.existsById(id));
+    }
+
+    @Test
+    void get_student_by_name(){
+        Student savedStudent = studentRepo.save(new Student(0, "Burger", "Man", "Chkechn"));
+        List<Student> students = studentRepo.findByFirstNameAndLastName(savedStudent.getFirstName(),savedStudent.getLastName());
+        Assertions.assertNotEquals(0,students.size());
     }
 }

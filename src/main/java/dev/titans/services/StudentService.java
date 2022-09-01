@@ -2,7 +2,10 @@ package dev.titans.services;
 
 import dev.titans.entities.Student;
 
+import java.util.List;
+
 public interface StudentService {
-    public void deleteStudentById(int id);
+    void deleteStudentById(int id);
     Student createStudent(Student student);
+    List<Student> getStudentsByName(String firstName, String lastName);
 }
