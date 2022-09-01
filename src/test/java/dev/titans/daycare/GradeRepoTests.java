@@ -75,18 +75,5 @@ public class GradeRepoTests {
 
         Assertions.assertEquals(1, grades.size());
     }
-
-    @Test
-    public void get_all_grades(){
-        // need a student in the DB in order to create a grade
-        Student student = new Student(0,"Beast","Boy","Batman");
-        Student savedStudent = studentRepo.save(student);
-        // need to save a grade in the DB
-        Grade grade = new Grade(0,savedStudent.getStudentId(),0,"Beast boy behaved well today!", Behavior.RESPONSIBLE);
-        Grade savedGrade = gradeRepo.save(grade);
-
-        List<Grade> grades = gradeRepo.findAll();
-        Assertions.assertNotEquals(0,grades.size());
-    }
 }
 

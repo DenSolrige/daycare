@@ -29,11 +29,6 @@ public class GradeController {
         return new ResponseEntity<Grade>(savedGrade, HttpStatus.CREATED);
     }
 
-    @GetMapping("/grades")
-    public List<Grade> getGrades(){
-        return this.gradeService.getGrades();
-    }
-
     @GetMapping("/students/{id}/grades")
     public List<Grade> getGradesByStudentId(@PathVariable String id){
         int studentId = Integer.parseInt(id);

@@ -8,7 +8,6 @@ public interface GradeService {
 
     Grade addGrade(Grade grade);
 
-    List<Grade> getGrades();
     List<Grade> getGradesByStudentId(int id);
 
     void deleteGradeById(int id);
