@@ -41,6 +41,7 @@ public class GradeController {
     public ResponseEntity<Grade> createGrade(@RequestBody Grade body) {
         Grade savedGrade = this.gradeService.addGrade(body);
         return new ResponseEntity<Grade>(savedGrade, HttpStatus.CREATED);
+    }
 
     @DeleteMapping("/grades/{id}")
     @ResponseBody
