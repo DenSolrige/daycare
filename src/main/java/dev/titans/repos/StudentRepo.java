@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface StudentRepo extends JpaRepository<Student,Integer> {
-    List<Student> findByFirstNameAndLastName(String firstName, String lastName);
+    List<Student> findByFirstNameOrLastName(String firstName, String lastName);
 }
