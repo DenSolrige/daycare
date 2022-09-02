@@ -27,11 +27,11 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public List<Student> getStudentsByName(@RequestParam(required = false) String firstName,@RequestParam(required = false) String lastName){
-        if(firstName == null && lastName == null){
+    public List<Student> getStudentsByName(@RequestParam(required = false) String name){
+        if(name == null){
             return this.studentService.getStudents();
         }else{
-            return this.studentService.getStudentsByName(firstName, lastName);
+            return this.studentService.getStudentsByName(name);
         }
     }
 }

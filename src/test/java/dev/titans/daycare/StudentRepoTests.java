@@ -34,9 +34,12 @@ public class StudentRepoTests {
 
     @Test
     void get_student_by_name(){
-        Student savedStudent = studentRepo.save(new Student(0, "Burger", "Man", "Chkechn"));
-        List<Student> students = studentRepo.findByFirstNameAndLastName(savedStudent.getFirstName(),savedStudent.getLastName());
-        Assertions.assertNotEquals(0,students.size());
+        Student savedStudent1 = studentRepo.save(new Student(0, "Burger", "Man", "Chkechn"));
+        Student savedStudent2 = studentRepo.save(new Student(0, "Man", "Burger", "Chkechn"));
+        Student savedStudent3 = studentRepo.save(new Student(0, "Burger", "Guy", "Chkechn"));
+        List<Student> students = studentRepo.findByFirstNameOrLastName("Burger","Burger");
+        System.out.println(students);
+        Assertions.assertTrue(students.size()>=3);
     }
 
     @Test

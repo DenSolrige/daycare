@@ -6,7 +6,10 @@ import dev.titans.repos.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -30,8 +33,13 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public List<Student> getStudentsByName(String firstName, String lastName) {
-        return this.studentRepo.findByFirstNameAndLastName(firstName,lastName);
+    public List<Student> getStudentsByName(String name) {
+        String[] nameArray = name.split("\\s+");
+        Set<Student> students = new HashSet<>();
+        for(String n: nameArray){
+            students.addAll(this.studentRepo.findByFirstNameOrLastName(n,n));
+        }
+        return new ArrayList<>(students);
     }
 
     @Override
