@@ -11,6 +11,7 @@ import java.util.List;
 
 @Controller
 @RestController
+@CrossOrigin
 public class StudentController {
 
     @Autowired
