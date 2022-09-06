@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"dev.titans"})
 @EntityScan(basePackages = {"dev.titans.entities"})
 @EnableJpaRepositories(basePackages = {"dev.titans.repos"})
-@ConfigurationPropertiesScan(basePackages = {"dev.titans.configs"})
 public class DaycareApplication {
 
 	public static void main(String[] args) {
