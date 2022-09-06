@@ -27,9 +27,9 @@ tasks.named('test') {
 
 task customFatJar(type: Jar) {
 	manifest {
-		attributes 'Main-Class': 'dev.terry.app.App'
+		attributes 'Main-Class': 'dev.titans.daycare.DaycareApplication'
 	}
-	baseName = 'daycare-App'
+	baseName = 'Daycare-App'
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 	from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 	with jar
