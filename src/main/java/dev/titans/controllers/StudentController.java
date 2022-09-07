@@ -18,18 +18,18 @@ public class StudentController {
     StudentService studentService;
 
     @DeleteMapping("/students/{id}")
-    public void deleteStudentById(@PathVariable String id){
+    public void deleteStudentById(@RequestHeader("auth") String jwt,@PathVariable String id){
         int s_id = Integer.parseInt(id);
         this.studentService.deleteStudentById(s_id);
     }
 
     @PostMapping("/students")
-    public Student createStudent(@RequestBody Student student){
+    public Student createStudent(@RequestHeader("auth") String jwt,@RequestBody Student student){
         return this.studentService.createStudent(student);
     }
 
     @GetMapping("/students")
-    public List<Student> getStudentsByName(@RequestParam(required = false) String name){
+    public List<Student> getStudentsByName(@RequestHeader("auth") String jwt,@RequestParam(required = false) String name){
         if(name == null){
             return this.studentService.getStudents();
         }else{

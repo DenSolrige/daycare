@@ -3,6 +3,7 @@ package dev.titans.controllers;
 import dev.titans.entities.Behavior;
 import dev.titans.entities.Grade;
 import dev.titans.services.GradeService;
+import dev.titans.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,21 +24,24 @@ public class GradeController {
     @Autowired
     GradeService gradeService;
 
+    @Autowired
+    JwtService jwtService;
 
     @PostMapping("/grades")
-    public ResponseEntity<Grade> createGrade(@RequestBody Grade body) {
+    public ResponseEntity<Grade> createGrade(@RequestHeader("auth") String jwt,@RequestBody Grade body) {
+        //if()
         Grade savedGrade = this.gradeService.addGrade(body);
         return new ResponseEntity<Grade>(savedGrade, HttpStatus.CREATED);
     }
 
     @GetMapping("/students/{id}/grades")
-    public List<Grade> getGradesByStudentId(@PathVariable String id){
+    public List<Grade> getGradesByStudentId(@RequestHeader("auth") String jwt,@PathVariable String id){
         int studentId = Integer.parseInt(id);
         return this.gradeService.getGradesByStudentId(studentId);
     }
 
     @DeleteMapping("/grades/{id}")
-    void deleteGradeById(@PathVariable String id){
+    void deleteGradeById(@RequestHeader("auth") String jwt,@PathVariable String id){
         int g_id = Integer.parseInt(id);
         this.gradeService.deleteGradeById(g_id);
 
