@@ -9,6 +9,7 @@ name: Java CI with Gradle
 env:
   DAYCARE_DB: ${{secrets.DAYCARE_DB}}
   DAYCARE_LOGGING_PATH: ${{secrets.DAYCARE_LOGGING_PATH}}
+  DAYCARE_MONGO_DB: ${{secrets.DAYCARE_MONGO_DB}}
 
 on:
   push:
