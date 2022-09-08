@@ -37,7 +37,7 @@ task customFatJar(type: Jar) {
 	with jar
 }
 
-onarqube {
+task sonarqube {
     properties {
         property "sonar.projectKey", "DenSolrige-daycare"
         property "sonar.organization", "densolrige"
