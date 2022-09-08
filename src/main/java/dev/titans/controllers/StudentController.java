@@ -5,7 +5,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import dev.titans.entities.Student;
 import dev.titans.exceptions.InsufficientPermissionException;
 import dev.titans.exceptions.UnauthenticatedException;
-import dev.titans.services.JwtService;
 import dev.titans.services.JwtValidationService;
 import dev.titans.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
