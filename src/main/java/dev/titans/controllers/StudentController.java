@@ -6,6 +6,7 @@ import dev.titans.entities.Student;
 import dev.titans.exceptions.InsufficientPermissionException;
 import dev.titans.exceptions.UnauthenticatedException;
 import dev.titans.services.JwtService;
+import dev.titans.services.JwtValidationService;
 import dev.titans.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +23,12 @@ public class StudentController {
     StudentService studentService;
 
     @Autowired
-    JwtService jwtService;
+    JwtValidationService jwtValidationService;
 
     @DeleteMapping("/students/{id}")
     public void deleteStudentById(@RequestHeader("auth") String jwt,@PathVariable String id){
 
-        if(jwtService.validateJwt(jwt)){
+        if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
 
@@ -45,7 +46,7 @@ public class StudentController {
     @PostMapping("/students")
     public Student createStudent(@RequestHeader("auth") String jwt,@RequestBody Student student){
 
-        if(jwtService.validateJwt(jwt)){
+        if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
 
@@ -61,7 +62,7 @@ public class StudentController {
     @GetMapping("/students")
     public List<Student> getStudentsByName(@RequestHeader("auth") String jwt,@RequestParam(required = false) String name){
 
-        if(jwtService.validateJwt(jwt)){
+        if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
 
@@ -73,6 +74,7 @@ public class StudentController {
                 }
             }else if(role.equals("Guardian")){
                 String username = decodedJWT.getClaim("username").asString();
+                System.out.println(username);
                 return this.studentService.getStudentsByGuardianUsername(username);
             }
         }
