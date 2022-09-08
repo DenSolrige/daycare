@@ -43,3 +43,4 @@ task sonarqube {
         property "sonar.organization", "densolrige"
         property "sonar.host.url", "https://sonarcloud.io"
     }
+    }
