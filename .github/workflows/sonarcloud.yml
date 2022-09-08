@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - action-testing
   workflow_dispatch:
   #pull_request:
    # types: [opened, synchronize, reopened]
@@ -32,6 +33,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
       - name: Build and analyze
         env:
+          SECRET_FOR_SONAR: ${{secrets.SECRET_FOR_SONAR}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           DAYCARE_DB: ${{ secrets.DAYCARE_DB}}
