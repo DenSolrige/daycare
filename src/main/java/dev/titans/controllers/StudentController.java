@@ -1,12 +1,16 @@
 package dev.titans.controllers;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import dev.titans.entities.Student;
+import dev.titans.exceptions.InsufficientPermissionException;
+import dev.titans.exceptions.UnauthenticatedException;
+import dev.titans.services.JwtService;
 import dev.titans.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
@@ -17,23 +21,61 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+    @Autowired
+    JwtService jwtService;
+
     @DeleteMapping("/students/{id}")
-    public void deleteStudentById(@PathVariable String id){
-        int s_id = Integer.parseInt(id);
-        this.studentService.deleteStudentById(s_id);
+    public void deleteStudentById(@RequestHeader("auth") String jwt,@PathVariable String id){
+
+        if(jwtService.validateJwt(jwt)){
+            DecodedJWT decodedJWT = JWT.decode(jwt);
+            String role = decodedJWT.getClaim("role").asString();
+
+            if(role.equals("Teacher")){
+                int s_id = Integer.parseInt(id);
+                this.studentService.deleteStudentById(s_id);
+                return;
+            }else{
+                throw new InsufficientPermissionException();
+            }
+        }
+        throw new UnauthenticatedException();
     }
 
     @PostMapping("/students")
-    public Student createStudent(@RequestBody Student student){
-        return this.studentService.createStudent(student);
+    public Student createStudent(@RequestHeader("auth") String jwt,@RequestBody Student student){
+
+        if(jwtService.validateJwt(jwt)){
+            DecodedJWT decodedJWT = JWT.decode(jwt);
+            String role = decodedJWT.getClaim("role").asString();
+
+            if(role.equals("Teacher")){
+                return this.studentService.createStudent(student);
+            }else{
+                throw new InsufficientPermissionException();
+            }
+        }
+        throw new UnauthenticatedException();
     }
 
     @GetMapping("/students")
-    public List<Student> getStudentsByName(@RequestParam(required = false) String name){
-        if(name == null){
-            return this.studentService.getStudents();
-        }else{
-            return this.studentService.getStudentsByName(name);
+    public List<Student> getStudentsByName(@RequestHeader("auth") String jwt,@RequestParam(required = false) String name){
+
+        if(jwtService.validateJwt(jwt)){
+            DecodedJWT decodedJWT = JWT.decode(jwt);
+            String role = decodedJWT.getClaim("role").asString();
+
+            if(role.equals("Teacher")){
+                if(name == null){
+                    return this.studentService.getStudents();
+                }else{
+                    return this.studentService.getStudentsByName(name);
+                }
+            }else if(role.equals("Guardian")){
+                String username = decodedJWT.getClaim("username").asString();
+                return this.studentService.getStudentsByGuardianUsername(username);
+            }
         }
+        throw new UnauthenticatedException();
     }
 }

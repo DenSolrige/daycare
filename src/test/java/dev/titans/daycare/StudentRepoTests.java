@@ -48,4 +48,11 @@ public class StudentRepoTests {
         List<Student> students = studentRepo.findAll();
         Assertions.assertNotEquals(0,students.size());
     }
+
+    @Test
+    void get_by_guardian_username(){
+        Student savedStudent = studentRepo.save(new Student(0, "Burger", "Man", "Chkechn"));
+        List<Student> students = studentRepo.findByGuardianUsername("Chkechn");
+        Assertions.assertNotEquals(0,students.size());
+    }
 }

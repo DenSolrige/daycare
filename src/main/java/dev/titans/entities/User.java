@@ -3,7 +3,7 @@ package dev.titans.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("user")
+@Document("User")
 public class User {
     @Id
     private String id;
