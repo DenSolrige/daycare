@@ -1,8 +1,8 @@
 package dev.titans.repos;
 
 import dev.titans.entities.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
