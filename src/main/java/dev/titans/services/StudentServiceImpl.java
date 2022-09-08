@@ -46,4 +46,9 @@ public class StudentServiceImpl implements StudentService{
     public List<Student> getStudents() {
         return this.studentRepo.findAll();
     }
+
+    @Override
+    public List<Student> getStudentsByGuardianUsername(String username) {
+        return this.getStudentsByGuardianUsername(username);
+    }
 }
