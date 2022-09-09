@@ -38,4 +38,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           DAYCARE_DB: ${{ secrets.DAYCARE_DB}}
           DAYCARE_LOGGING_PATH: ${{ secrets.DAYCARE_LOGGING_PATH}}
-        run: ./gradlew build sonarqube --info
+        run: ./gradlew build sonarqube --info --debug
