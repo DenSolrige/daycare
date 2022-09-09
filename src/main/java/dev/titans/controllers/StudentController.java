@@ -8,6 +8,7 @@ import dev.titans.exceptions.UnauthenticatedException;
 import dev.titans.services.JwtService;
 import dev.titans.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +25,13 @@ public class StudentController {
     @Autowired
     JwtService jwtService;
 
+    @Autowired
+    JmsTemplate jmsTemplate;
+
     @DeleteMapping("/students/{id}")
     public void deleteStudentById(@RequestHeader("auth") String jwt,@PathVariable String id){
-
+        String message = "Student was deleted from the class";
+        jmsTemplate.convertAndSend("titan-important-events", message);
         if(jwtService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
