@@ -24,14 +24,3 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
-task customFatJar(type: Jar) {
-	manifest {
-		attributes 'Main-Class': 'dev.titans.daycare.DaycareApplication'
-	}
-	baseName = 'Daycare-App'
-	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-	from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-	with jar
-} 
-
