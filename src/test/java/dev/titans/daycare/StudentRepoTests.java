@@ -30,6 +30,7 @@ public class StudentRepoTests {
         int id = savedStudent.getStudentId();
         studentRepo.deleteById(id);
         Assertions.assertFalse(studentRepo.existsById(id));
+
     }
 
     @Test
