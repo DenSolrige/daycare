@@ -1,13 +1,10 @@
-FROM gradle
+FROM gradle:jdk8 as build
+COPY . /app
+WORKDIR /app
+RUN gradle build -x test
 
-COPY . /workspace
-
-WORKDIR /workspace
-
-RUN gradle task customFatJar
-
-WORKDIR /workspace/build/libs
-
+FROM openjdk:8-jdk-alpine
 EXPOSE 8080
-
-ENTRYPOINT ["java","-jar","Daycare-App-0.0.1-SNAPSHOT.jar"]
+COPY --from=build /app/build/libs/daycare-0.0.1-SNAPSHOT.jar /app/app.jar
+WORKDIR /app
+ENTRYPOINT ["java","-jar","app.jar"]
