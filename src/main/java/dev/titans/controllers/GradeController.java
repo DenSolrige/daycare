@@ -83,6 +83,7 @@ public class GradeController {
             if(role.equals("Teacher")){
                 int g_id = Integer.parseInt(id);
                 this.gradeService.deleteGradeById(g_id);
+                return;
             }else{
                 throw new InsufficientPermissionException();
             }
