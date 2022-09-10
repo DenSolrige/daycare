@@ -6,21 +6,24 @@ import dev.titans.repos.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService{
     @Autowired
     StudentRepo studentRepo;
 
-    //Delete
     @Override
-    public void deleteStudentById(int id) throws StudentNotFoundException {
+    public String deleteStudentById(int id) throws StudentNotFoundException {
         if(this.studentRepo.existsById(id)){
+            Optional<Student> student = this.studentRepo.findById(id);
             this.studentRepo.deleteById(id);
+            if(student.isPresent()){
+                return student.get().getFirstName()+" "+student.get().getLastName();
+            }
+            else{
+                return "";
+            }
         }
         else{
             throw new StudentNotFoundException();

@@ -30,15 +30,17 @@ public class StudentController {
 
     @DeleteMapping("/students/{id}")
     public void deleteStudentById(@RequestHeader("auth") String jwt,@PathVariable String id){
-        String message = "Student was deleted from the class";
-        jmsTemplate.convertAndSend("titan-important-events", message);
         if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
 
             if(role.equals("Teacher")){
                 int s_id = Integer.parseInt(id);
-                this.studentService.deleteStudentById(s_id);
+                String name = this.studentService.deleteStudentById(s_id);
+                if(!name.equals("")){
+                    String message = "Student with name:"+ name +" was deleted from the class";
+                    jmsTemplate.convertAndSend("titan-important-events", message);
+                }
                 return;
             }else{
                 throw new InsufficientPermissionException();
@@ -55,6 +57,9 @@ public class StudentController {
             String role = decodedJWT.getClaim("role").asString();
 
             if(role.equals("Teacher")){
+                String name = student.getFirstName() + " " + student.getLastName();
+                String message = "Student with name:"+ name +" was added to the class";
+                jmsTemplate.convertAndSend("titan-important-events", message);
                 return this.studentService.createStudent(student);
             }else{
                 throw new InsufficientPermissionException();
