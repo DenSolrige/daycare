@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.3'
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
+	id "org.sonarqube" version "3.4.0.2513"
 }
 
 group = 'dev.titans'
@@ -16,14 +17,12 @@ ext {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation group: 'com.auth0', name: 'java-jwt', version: '4.0.0'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
 	implementation group: 'com.azure.spring', name: 'azure-spring-boot-starter-servicebus-jms', version: '4.0.0'
 	implementation 'com.azure.spring:spring-cloud-azure-starter'
 }
@@ -38,14 +37,4 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
-}
-
-task customFatJar(type: Jar) {
-	manifest {
-		attributes 'Main-Class': 'dev.titans.daycare.DaycareApplication'
-	}
-	baseName = 'Daycare-App'
-	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-	from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-	with jar
 }

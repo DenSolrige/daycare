@@ -7,7 +7,7 @@ import dev.titans.entities.Student;
 import dev.titans.exceptions.InsufficientPermissionException;
 import dev.titans.exceptions.UnauthenticatedException;
 import dev.titans.services.GradeService;
-import dev.titans.services.JwtService;
+import dev.titans.services.JwtValidationService;
 import dev.titans.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,11 +33,11 @@ public class GradeController {
     GradeService gradeService;
 
     @Autowired
-    JwtService jwtService;
+    JwtValidationService jwtValidationService;
 
     @PostMapping("/grades")
     public ResponseEntity<Grade> createGrade(@RequestHeader("auth") String jwt,@RequestBody Grade body) {
-        if(jwtService.validateJwt(jwt)){
+        if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
 
@@ -53,7 +53,7 @@ public class GradeController {
 
     @GetMapping("/students/{id}/grades")
     public List<Grade> getGradesByStudentId(@RequestHeader("auth") String jwt,@PathVariable String id){
-        if(jwtService.validateJwt(jwt)){
+        if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
             int studentId = Integer.parseInt(id);
@@ -76,7 +76,7 @@ public class GradeController {
 
     @DeleteMapping("/grades/{id}")
     void deleteGradeById(@RequestHeader("auth") String jwt,@PathVariable String id){
-        if(jwtService.validateJwt(jwt)){
+        if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
 

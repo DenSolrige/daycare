@@ -5,7 +5,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import dev.titans.entities.Student;
 import dev.titans.exceptions.InsufficientPermissionException;
 import dev.titans.exceptions.UnauthenticatedException;
-import dev.titans.services.JwtService;
+import dev.titans.services.JwtValidationService;
 import dev.titans.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
@@ -23,7 +23,7 @@ public class StudentController {
     StudentService studentService;
 
     @Autowired
-    JwtService jwtService;
+    JwtValidationService jwtValidationService;
 
     @Autowired
     JmsTemplate jmsTemplate;
@@ -32,7 +32,7 @@ public class StudentController {
     public void deleteStudentById(@RequestHeader("auth") String jwt,@PathVariable String id){
         String message = "Student was deleted from the class";
         jmsTemplate.convertAndSend("titan-important-events", message);
-        if(jwtService.validateJwt(jwt)){
+        if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
 
@@ -50,7 +50,7 @@ public class StudentController {
     @PostMapping("/students")
     public Student createStudent(@RequestHeader("auth") String jwt,@RequestBody Student student){
 
-        if(jwtService.validateJwt(jwt)){
+        if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
 
@@ -66,7 +66,7 @@ public class StudentController {
     @GetMapping("/students")
     public List<Student> getStudentsByName(@RequestHeader("auth") String jwt,@RequestParam(required = false) String name){
 
-        if(jwtService.validateJwt(jwt)){
+        if(jwtValidationService.validateJwt(jwt)){
             DecodedJWT decodedJWT = JWT.decode(jwt);
             String role = decodedJWT.getClaim("role").asString();
 
